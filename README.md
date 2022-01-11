@@ -1,1 +1,1 @@
-# MLB-Capstone-Project
+# MLB_Capstone_Project
