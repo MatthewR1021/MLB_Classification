@@ -17,7 +17,7 @@ After that I used an iterative approach to build 6 predictive, classification mo
 After comparing metrics across all 6 of our models, the top 3 performers are Logistic Regression, K-Nearest Neighbors and Random Forest.
 ![image](https://user-images.githubusercontent.com/73855593/150588558-47e6f62b-82f1-4651-9239-e3ff4b86a901.png)
 
-While all returned fairly encouraging results the Random Forest model was consistently coming out on top. In order to increase accuracy I built a function that would then drop games that were under 60% confidence meaning it would recommend you bet less games but the accuracy would also increase.
+While all returned fairly encouraging results the Random Forest model was consistently coming out on top. In order to increase accuracy I built a function that would then drop games that were under 60% confidence meaning it would recommend you bet less games but the accuracy would also increase. This would help your overall profit.
 ![image](https://user-images.githubusercontent.com/73855593/150588369-0de37693-8290-4fad-9047-a75de533c171.png)
 This still had Random Forest leading when it comes to accuracy but because of my new adjusted accuracy function it is also important to see how many games each model is selecting. That can be seen in the chart below:
 ![image](https://user-images.githubusercontent.com/73855593/150588890-806a7b8f-d775-4851-a20f-3d87be1a23ba.png)
@@ -25,3 +25,17 @@ This still had Random Forest leading when it comes to accuracy but because of my
 The first thing that pops out in most of these charts is 2020 and 2021. These years were heavily effected by the Covid pandemic and it can be assumed that normal years will look more like 2016-2019. Even so looking at this chart Random Forest has only further confirmed its standing as the superior model to use and that is the model that I decided to move forward with.
 
 The only question to remain is using RFECV or PCA. The mean accuracy score using RFECV is 84.1% and the mean accuracy score using PCA is 83.6%. Then there is the number of games they tell you to bet on in an average season and that would be 184.8 for RFECV and 184 for PCA. This seems to have a slight edge towards RFECV however it should also be noted how much more computationally expensive it can be to use RFECV rather than PCA. In order to make sure these numbers were not overly skewed by the covid years I decided to look at the averages if we eliminated those years. Once that was done the mean accuracy scores were now 76.15% for RFECV and 76.33% for PCA. Once again incredibly close and now the games selected were 265.75 for RFECV and 264.5 for PCA.
+
+# Conclusion
+The results of the Random Forest are clearly the best so that is the model that I would recommend is used in this expirement. I would also recommend using PCA for the model rather than RFECV feature selection as PCA is much less computationally expensive and the accuracy scores and amount of games picked are nearly identical. 
+
+For next steps I would like to:
+- Dive deeper into games on a more individual level in order to value starting pitching to a higher level
+- Integrate Moneyline data so I can further identify value
+- Look at adjusting bet sizing based on value potentially using the famous Kelly Criterion
+
+# More Information
+
+
+
+# Repository Structure
