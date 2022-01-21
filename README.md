@@ -14,4 +14,12 @@ I set the win/loss outcome for the home team as the binary target variable, with
 
 After that I used an iterative approach to build 6 predictive, classification models: Logistic regression, K-Nearest Neighbors, Decision Tree, Random Forest, Bagging classifier and XGBoost. We utilize hyperparameter tuning, cross-validation and scoring to select the highest performing, predictive models. This approach is applied to regular season as well as post season data.
 # Results
-After comparing metrics across all 6 of our models, the top 3 performers are Logistic Regression, K-Nearest Neighbors and Random Forest. While all returned fairly encouraging results the Random Forest model was consistently coming out on top. In order to increase accuracy I built a function that would then drop games that were under 60% confidence meaning it would recommend you bet less games but the accuracy would also increase.
+After comparing metrics across all 6 of our models, the top 3 performers are Logistic Regression, K-Nearest Neighbors and Random Forest.
+![image](https://user-images.githubusercontent.com/73855593/150588558-47e6f62b-82f1-4651-9239-e3ff4b86a901.png)
+
+While all returned fairly encouraging results the Random Forest model was consistently coming out on top. In order to increase accuracy I built a function that would then drop games that were under 60% confidence meaning it would recommend you bet less games but the accuracy would also increase.
+![image](https://user-images.githubusercontent.com/73855593/150588369-0de37693-8290-4fad-9047-a75de533c171.png)
+This still had Random Forest leading when it comes to accuracy but because of my new adjusted accuracy function it is also important to see how many games each model is selecting. That can be seen in the chart below:
+![image](https://user-images.githubusercontent.com/73855593/150588890-806a7b8f-d775-4851-a20f-3d87be1a23ba.png)
+
+The first thing that pops out in most of these charts is 2020 and 2021. These years were heavily effected by the Covid pandemic and it can be assumed that normal years will look more like 2016-2019. Even so looking at this chart Random Forest has only further confirmed its standing as the superior model to use and that is the model that I decided to move forward with.
