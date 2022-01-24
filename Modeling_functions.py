@@ -21,6 +21,24 @@ warnings.filterwarnings("ignore")
 
 
 
+
+def data_preprocessing(df, df2):
+    X_train = df.drop(['home_win','H_name','A_name','fav_win'], axis=1)
+    X_test = df2.drop(['home_win','H_name','A_name','fav_win'], axis=1)
+    y_train = df.home_win
+    y_test= df2.home_win
+    
+    ss = StandardScaler()
+    X_train_scaled = ss.fit_transform(X_train)
+    X_test_scaled = ss.transform(X_test)
+    
+    X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns)
+    X_test_scaled = pd.DataFrame(X_test_scaled, columns=X_test.columns)
+    
+    return X_train_scaled, X_test_scaled,y_train,y_test
+
+
+
 def feature_select(X_train,y_train,estimator,min_features,step=1):
     estimator2=estimator()
     selector=RFECV(estimator2,min_features_to_select=min_features,step=step)
@@ -67,6 +85,7 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     
     # Create prediction variable using test data
     y_pred = log.predict(X_test)
+    y_pred_proba = log.predict_proba(X_test)
     
     # Run cross-validate score with cv folds from function parameter
     cv_results = cross_val_score(log, X_train, y_train, cv=cv)
@@ -90,80 +109,15 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     # Plot an ROC curve (only works with binary data)
     fig, ax = plt.subplots()
     plot_roc_curve(log, X_train, y_train, name='train', ax=ax)
-    plot_roc_curve(log, X_test, y_test, name='test', ax=def knn(X_train, X_test, y_train, y_test, metric='minkowski', cv=5):
-    
-    # Set GridSearchCV hyperparameters to compare & select
-    grid = {
-    'n_neighbors': [5,7,9,11,13,15,17],
-    'metric': ['minkowski', 'manhattan'],
-    'weights': ['uniform', 'distance']}
-    
-    # Instantiate & fit KNN model for GridSearch
-    grid_knn = KNeighborsClassifier()
-    grid_knn.fit(X_train, y_train)
-    
-    # Instantiate & fit GridSearchCV with accuracy scoring
-    gs = GridSearchCV(estimator=grid_knn, param_grid=grid, cv=cv, scoring='accuracy')
-    gs.fit(X_train, y_train)
-    
-    # Return best hyperparameters
-    knn_params = gs.best_params_
-    
-    # Use best # of neighbors from best_params
-    knn_neighbors = knn_params['n_neighbors']
-    print(f'Number of Neighbors: {knn_neighbors}')
-    
-    # Use best metric from best_params
-    knn_metric = knn_params['metric']
-    print(f'Metric: {knn_metric}')
-    
-    # Use best weights from best_params
-    knn_weights=knn_params['weights']
-    print(f'Weights: {knn_weights}')
-    
-    # Instantiate & fit K-Nearest Neighbors model
-    knn = KNeighborsClassifier(n_neighbors=knn_neighbors, metric=knn_metric,
-                               weights=knn_weights)
-    knn.fit(X_train, y_train)
-    
-    # Create prediction variable using test data
-    y_pred = knn.predict(X_test)
-    
-    # Run cross-validate score with cv folds from function parameter
-    cv_results = cross_val_score(knn, X_train, y_train, cv=cv)
-    print(f'Mean Cross-Val Score: {cv_results.mean()}')
-    
-    # Run and print accuracy, recall, precision and f1 scores
-    train_score = knn.score(X_train, y_train)
-    print(f'Train Mean Accuracy: {train_score}')
-    test_score = knn.score(X_test, y_test)
-    print(f'Test Mean Accuracy: {test_score}')
-    
-    rec_score = recall_score(y_test, y_pred)
-    print(f'Recall Score: {rec_score}')
-    
-    prec_score = precision_score(y_test, y_pred)
-    print(f'Precision Score: {prec_score}')
-    
-    f1 = f1_score(y_test, y_pred)
-    print(f'F1 score: {f1}')
-    
-    # Plot an ROC curve (only works with binary data)
-    fig, ax = plt.subplots()
-    plot_roc_curve(knn, X_train, y_train, name='train', ax=ax)
-    plot_roc_curve(knn, X_test, y_test, name='test', ax=ax)
-    
-    # Plot Confusion Matrix
-    plot_confusion_matrix(knn, X_train, y_train)
-    plot_confusion_matrix(knn, X_test, y_test)ax)
+    plot_roc_curve(log, X_test, y_test, name='test', ax=ax)
     
     # Plot Confusion Matrix
     plot_confusion_matrix(log, X_train, y_train)
     plot_confusion_matrix(log, X_test, y_test)
+    return y_pred,y_pred_proba
     
     
-    
-    def knn(X_train, X_test, y_train, y_test, metric='minkowski', cv=5):
+def knn(X_train, X_test, y_train, y_test, metric='minkowski', cv=5):
     
     # Set GridSearchCV hyperparameters to compare & select
     grid = {
@@ -201,6 +155,7 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     
     # Create prediction variable using test data
     y_pred = knn.predict(X_test)
+    y_proba=knn.predict_proba(X_test)
     
     # Run cross-validate score with cv folds from function parameter
     cv_results = cross_val_score(knn, X_train, y_train, cv=cv)
@@ -230,9 +185,10 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     plot_confusion_matrix(knn, X_train, y_train)
     plot_confusion_matrix(knn, X_test, y_test)
     
+    return y_pred,y_proba
     
     
-    def dtree(X_train, X_test, y_train, y_test, cv=5):
+def dtree(X_train, X_test, y_train, y_test, cv=5):
     
     # Set GridSearchCV hyperparameters to compare & select
     grid = {
@@ -270,6 +226,7 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     
     # Create prediction variable using test data
     y_pred = dtree.predict(X_test)
+    y_prob= dtree.predict_proba(X_test)
     
     # Run cross-validate score with cv folds from function parameter
     cv_results = cross_val_score(dtree, X_train, y_train, cv=cv)
@@ -299,10 +256,11 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     plot_confusion_matrix(dtree, X_train, y_train)
     plot_confusion_matrix(dtree, X_test, y_test)
     
+    return y_pred,y_prob
     
     
     
-    def random_forest(X_train, X_test, y_train, y_test, cv=5):
+def random_forest(X_train, X_test, y_train, y_test, cv=5):
     
     # Set GridSearchCV hyperparameters to compare & select
     grid = {
@@ -335,6 +293,7 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     
     # Create prediction variable using test data
     y_pred = rforest.predict(X_test)
+    y_prob = rforest.predict_proba(X_test)
     
     # Run cross-validate score with cv folds from function parameter
     cv_results = cross_val_score(rforest, X_train, y_train, cv=cv)
@@ -364,9 +323,11 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     plot_confusion_matrix(rforest, X_train, y_train)
     plot_confusion_matrix(rforest, X_test, y_test);
     
+    return y_pred,y_prob
+
     
     
-    def bagged(X_train, X_test, y_train, y_test, cv=5):
+def bagged(X_train, X_test, y_train, y_test, cv=5):
 
     # Set GridSearchCV hyperparameters to compare & select
     grid = {
@@ -416,6 +377,7 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     
     # Create prediction variable using test data
     y_pred = bagging.predict(X_test)
+    y_prob = bagging.predict_proba(X_test)
     
     # Run cross-validate score with cv folds from function parameter
     cv_results = cross_val_score(bagging, X_train, y_train, cv=cv)
@@ -445,9 +407,9 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     plot_confusion_matrix(bagging, X_train, y_train)
     plot_confusion_matrix(bagging, X_test, y_test);
     
+    return y_pred, y_prob
     
-    
-    def xgboost(X_train, X_test, y_train, y_test, cv=5):
+def xgboost(X_train, X_test, y_train, y_test, cv=5):
     
     # Set GridSearchCV hyperparameters to compare & select
     grid = {
@@ -495,6 +457,7 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     
     # Create prediction variable using test data
     y_pred = xgb.predict(X_test)
+    y_prob = xgb.predict_proba(X_test)
     
     # Run cross-validate score with cv folds from function parameter
     cv_results = cross_val_score(xgb, X_train, y_train, cv=cv)
@@ -523,3 +486,34 @@ def logreg(X_train, X_test, y_train, y_test, cv=5):
     # Plot Confusion Matrix
     plot_confusion_matrix(xgb, X_train, y_train)
     plot_confusion_matrix(xgb, X_test, y_test);
+    
+    return y_pred, y_prob
+    
+    
+def new_acc(probabilities):
+    class_list2=[]
+    for log in probabilities:
+        if log[0]<.40:
+            class_list2.append(1)
+        elif log[0]>.60:
+            class_list2.append(0)
+        else:
+            class_list2.append(3)
+    y_pred_class=pd.DataFrame(class_list2)
+    y_pred_class.reset_index(inplace=True)
+    y_test_df=pd.DataFrame(y_test)
+    y_test_df.reset_index(inplace=True)
+    comb=pd.concat([y_test_df,y_pred_class],axis=1)
+    comb.drop(['index','index'],axis=1,inplace=True)
+    comb['pred']=comb[0]
+    comb.drop([0],axis=1,inplace=True)
+    comb.drop(comb[comb['pred'] == 3].index, inplace = True)
+    count=0
+    for bools in comb['home_win']==comb['pred']:
+        if bools is True:
+            count+=1
+        else:
+            pass
+    accuracy=count/len(comb)
+    
+    return accuracy
