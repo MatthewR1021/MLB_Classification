@@ -37,7 +37,19 @@ For next steps I would like to:
 - Look at adjusting bet sizing based on value potentially using the famous Kelly Criterion
 
 # More Information
+Please look through our main [Jupyter Notebook](https://github.com/MatthewR1021/MLB_Capstone_Project/blob/main/Main_Notebook.ipynb)
 
-
+If you have any questions feel free to contact me: Mreinhart1021@gmail.com
 
 # Repository Structure
+```
+├── README.md                           <- The top-level README for reviewers of this project
+├── Main_Notebook.ipynb                 <- Narrative documentation of analysis in Jupyter Notebook
+├── Project_Presentation.pdf            <- PDF version of project presentation
+├── Modeling_functions.py               <- Python script with all model related functions to be called in MAIN Notebook
+├── data_collection_functions.py        <- Raw .csv source files from Kaggle
+├── data                                <- Folder of cleaned, exported .csv files to import in MAIN Notebook
+├── Data_cleaning_and_exploration       <- Folder of separate Notebooks showing collection and cleaning of data
+├── Modeling                            <- Folder of separate Notebooks showing completed models on data
+└── Obselete                            <- Older Notebooks that aren't necessary for final deliverables
+```
