@@ -9,6 +9,8 @@ In the world of this project I am offering a better way to bet Major League Base
 In order to maximize returns, I ran a series of machine learning algorithms to model predictions for single games in a given MLB season. Accuracy is paramount in selecting our models, as we strive to minimize risk for our customers.
 # Data
 The data is mainly from [Sportsipy](https://sportsreference.readthedocs.io/en/stable/mlb.html?highlight=MLB) with insights from [Baseball-Referance](https://www.baseball-reference.com/) as well
+
+To reproduce, click on either hyperlinks above, if you wish to access Sportsipy there are instructions as to how to get the data on the site as well as at the beginning of the "get any year" notebook in the "Data cleaning and exploration" folder on the repository. For the Baseball-Referance data after clicking on the link you can choose which year and which type of stats you would like to work with and then hit the drop down choose export it to csv option for easy use.
 # Methodology
 I set the win/loss outcome for the home team as the binary target variable, with 1 equaling a win for the home team and 0 equaling a win for the away team.
 
