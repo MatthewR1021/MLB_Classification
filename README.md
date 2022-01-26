@@ -1,14 +1,14 @@
 # MLB Capstone Project
 Author: [Matthew Reinhart](https://www.linkedin.com/in/matthew-reinhart-1bb372173/)
 # Overview and Business Problem
-The sports gambling industry is one of the fastest growing in America today. You cannot turn the television on to any sports channel without seeing an advertisement for one of the big sportsbooks. Whether it be Draftkings, FanDuel, BetMGM, Caesaers, Pointsbet or Barstool the list goes on and on and the industry is only going to keep growing on a more national stage as more and more states move to legalize it. There is one sport that is widely considered the most difficult to bet on and predict within this industry and that is Major League Baseball. In a season with 162 games where powerhouses regularly lose to teams they are considered to be far superior to it can be awfully difficult to figure out who to bet on and to turn a profit. As [GamblingSites](https://www.gamblingsites.org/blog/6-sports-ranked-from-easiest-to-hardest-to-bet-on/) hardest sports to bet on ranking says "Coming in as the most complicated sport to bet on is baseball. While I love betting on America’s pastime, it’s known to be the most demanding sport to win money. Baseball, unlike other major sports, is by far the most unpredictable sport to gamble on." 
+The sports gambling industry is one of the fastest growing in America today. You cannot turn the television on to any sports channel without seeing an advertisement for one of the big sportsbooks. Whether it be Draftkings, FanDuel, BetMGM, Caesaers, Pointsbet or Barstool, the list goes on and on and the industry is only going to keep growing on a more national stage as more and more states move to legalize it. There is one sport that is widely considered the most difficult to bet on and predict within this industry and that is Major League Baseball. In a season with 162 games where powerhouses regularly lose to teams they are considered to be far superior to it can be awfully difficult to figure out who to bet on and to turn a profit. As [GamblingSites](https://www.gamblingsites.org/blog/6-sports-ranked-from-easiest-to-hardest-to-bet-on/) hardest sports to bet on ranking says "Coming in as the most complicated sport to bet on is baseball. While I love betting on America’s pastime, it’s known to be the most demanding sport to win money. Baseball, unlike other major sports, is by far the most unpredictable sport to gamble on." 
 
 For even more information on the reality of this business probelm visit [The Sports Geek](https://www.thesportsgeek.com/blog/6-reasons-casual-gamblers-should-avoid-betting-on-the-mlb/). Here he breaks down six of the reasons why baseball can be very difficult to predict.
 # Business Objective 
 In the world of this project I am offering a better way to bet Major League Baseball. I offer people a more profitable way to bet the most unpredictable sport.
 In order to maximize returns, I ran a series of machine learning algorithms to model predictions for single games in a given MLB season. Accuracy is paramount in selecting our models, as we strive to minimize risk for our customers.
 # Data
-The data is mainly from [Sportsipy](https://sportsreference.readthedocs.io/en/stable/mlb.html?highlight=MLB) with insights from [Baseball-Referance](https://www.baseball-reference.com/) as well
+The data is mainly from [Sportsipy](https://sportsreference.readthedocs.io/en/stable/mlb.html?highlight=MLB) with insights from [Baseball-Referance](https://www.baseball-reference.com/) as well.
 
 To reproduce, click on either hyperlinks above, if you wish to access Sportsipy there are instructions as to how to get the data on the site as well as at the beginning of the "get any year" notebook in the "Data cleaning and exploration" folder on the repository. For the Baseball-Referance data after clicking on the link you can choose which year and which type of stats you would like to work with and then hit the drop down choose export it to csv option for easy use.
 # Methodology
@@ -37,7 +37,7 @@ For next steps I would like to:
 - Look at adjusting bet sizing based on value potentially using the famous Kelly Criterion
 
 # More Information
-Please look through our main [Jupyter Notebook](https://github.com/MatthewR1021/MLB_Capstone_Project/blob/main/Main_Notebook.ipynb)
+Please look through my main [Jupyter Notebook](https://github.com/MatthewR1021/MLB_Capstone_Project/blob/main/Main_Notebook.ipynb)
 
 If you have any questions feel free to contact me: Mreinhart1021@gmail.com
 
