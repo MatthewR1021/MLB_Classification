@@ -37,7 +37,7 @@ For next steps I would like to:
 - Look at adjusting bet sizing based on value potentially using the famous Kelly Criterion
 
 # More Information
-Please look through my main [Jupyter Notebook](https://github.com/MatthewR1021/MLB_Capstone_Project/blob/main/Main_Notebook.ipynb)
+Please look through my main [Jupyter Notebook](https://github.com/MatthewR1021/MLB_Capstone_Project/blob/main/Main_Notebook.ipynb) and check out my [Presentation Deck](https://github.com/MatthewR1021/MLB_Capstone_Project/blob/main/Project_Presentation.pdf)
 
 If you have any questions feel free to contact me: Mreinhart1021@gmail.com
 
