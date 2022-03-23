@@ -1,6 +1,29 @@
 import pandas as pd
 import numpy as np
+from datetime import datetime
+from sportsipy.mlb.boxscore import Boxscore
+from sportsipy.mlb.boxscore import Boxscores
 
+# Function to return games in certain time range
+def get_current_games(date,end_date,end_week=None):
+    
+    games = Boxscores(date,end_date)
+    schedule = games.games
+
+    game_days = []
+    for day in schedule.values():
+        for game in day:
+            game_days.append(game['boxscore'])
+            
+    season_games = []
+
+    for i in game_days:
+        temp = Boxscore(i).dataframe
+        season_games.append(temp)
+
+    df = pd.concat(season_games, axis = 0).reset_index()
+
+    return df
 
 
 
@@ -81,8 +104,6 @@ def single_game(team1_name, team2_name,df):
 
 
 
-
-
 def create_season_df(df,date):
     
     #Reset the index
@@ -131,7 +152,7 @@ def create_season_df(df,date):
 
     #loop through matchups and create single games for each matchup using that function, then append to season games
     for team in matchups:
-        game = single_game(team[0], team[1],df2)
+        game = single_game(team[0], team[1],df)
         season_games.append(game)
     
     # from the season games list concatenate all the outputted DataFrames and insert the location
@@ -145,3 +166,66 @@ def create_season_df(df,date):
                   [0])
                        
     return df
+
+# def create_season_df(df,date):
+    
+#     #Reset the index
+#     df.reset_index(inplace=True)
+  
+#     # create a DataFrame for the season we are looking for
+#     # season_df for whatever season you are looking for
+#     season_df = df[df['date'] >= date]
+#     #reset index
+#     #season_df.reset_index(inplace = True)
+    
+#     #Get home winners and Away winners in their own dataframe
+#     Home = season_df[(season_df['winner'] == 'Home')] 
+#     Away= season_df[(season_df['winner'] == 'Away')]
+    
+#     #Rename columns in the home win from winner and loser to home and away
+#     Home=Home.rename(columns={'winning_abbr':'home_abbr','winning_name':'home_name','losing_name':'away_name',
+#                          'losing_abbr':'away_abbr'})
+    
+#     #Rename columns in the away win from winner and loser to home and away
+#     Away= Away.rename(columns={'winning_abbr':'away_abbr','winning_name':'away_name','losing_name':'home_name',
+#                          'losing_abbr':'home_abbr'})
+    
+#     #Concat these to make season_df now the same but with these new column names
+#     season_df= pd.concat([Home,Away])
+    
+#     #Get Home and away alone once again
+#     Home = season_df[(season_df['winner'] == 'Home')] 
+#     Away= season_df[(season_df['winner'] == 'Away')]
+    
+#     #Create a winning abbreviation column
+#     Home['winning_abbr']= Home['home_abbr']
+#     Away['winning_abbr']= Away['away_abbr']
+    
+#     #Concat to update season_df
+#     season_df=pd.concat([Home,Away])
+    
+#     #order it by date again
+#     season_df=season_df.sort_values('date')
+    
+    
+#     # create a list with the two teams, home team always first, the season, and the day number of the game
+#     matchups = list(zip(season_df.home_abbr, season_df.away_abbr, season_df.date, season_df.winning_abbr))
+    
+#     season_games = [] 
+
+#     #loop through matchups and create single games for each matchup using that function, then append to season games
+#     for team in matchups:
+#         game = single_game(team[0], team[1],df2)
+#         season_games.append(game)
+    
+#     # from the season games list concatenate all the outputted DataFrames and insert the location
+#     # of the winner (home(1), away(0))
+#     df = pd.concat(season_games, axis = 0)
+#     #reset_index
+#     df.reset_index(inplace = True, drop = True)
+#     #Create new column where it will have a 1 if home team won and 0 if away team won
+#     df['home_win'] = np.where(season_df.home_abbr ==season_df.winning_abbr,
+#                   [1],
+#                   [0])
+                       
+#     return df
